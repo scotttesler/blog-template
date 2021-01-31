@@ -5,7 +5,7 @@
   },
   "description": "A blog template.",
   "homepage": "https://github.com/scotttesler/blog-template#readme",
-  "license": "GPL-3.0-or-later",
+  "license": "MIT",
   "main": "index.js",
   "name": "blog-template",
   "repository": {
