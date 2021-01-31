@@ -1,4 +1,4 @@
-
+A minimal blog based on markdown.
 
 # Inspiration
 
