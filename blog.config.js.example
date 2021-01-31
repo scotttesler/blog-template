@@ -1,0 +1,16 @@
+module.exports = {
+  css: {
+    dark: {
+      backgroundColor: "black",
+      color1: "green",
+      themeChangerBackgroundColor: "pink",
+      misc: ""
+    },
+    light: {
+      backgroundColor: "white",
+      color1: "purple",
+      themeChangerBackgroundColor: "brown",
+      misc: ""
+    },
+  },
+};

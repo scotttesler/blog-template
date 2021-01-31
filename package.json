@@ -1,0 +1,37 @@
+{
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/scotttesler/blog-template/issues"
+  },
+  "description": "A blog template.",
+  "homepage": "https://github.com/scotttesler/blog-template#readme",
+  "license": "GPL-3.0-or-later",
+  "main": "index.js",
+  "name": "blog-template",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scotttesler/blog-template.git"
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "start": "next start"
+  },
+  "version": "0.0.1",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "gray-matter": "^4.0.2",
+    "lodash": "^4.17.20",
+    "next": "^10.0.6",
+    "next-themes": "0.0.10",
+    "normalize.css": "^8.0.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-markdown": "^5.0.3",
+    "react-syntax-highlighter": "^15.4.3",
+    "react-toggle": "^4.1.1",
+    "remark-gfm": "^1.0.0"
+  }
+}
