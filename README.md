@@ -1,3 +1,7 @@
+# 🚧 WIP 🚧
+
+---
+
 A minimal blog, based on markdown and [next.js](https://nextjs.org/).
 
 # Configuration
@@ -6,7 +10,7 @@ TBA
 
 # Development
 
-A `.nvmrc` file exists, for use with [nvm](https://github.com/nvm-sh/nvm). Feel free to use your own node installation, but using the Node version in `.nvmrc` is recommended.
+A `.nvmrc` file exists for use with [nvm](https://github.com/nvm-sh/nvm). Feel free to use your own node installation, but using the node version in `.nvmrc` is recommended.
 
 ```bash
 npm install
