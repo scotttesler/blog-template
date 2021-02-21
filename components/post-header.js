@@ -1,4 +1,11 @@
-export default function PostHeader({ authors = [], date, tags = [], title }) {
+export default function PostHeader({
+  authors = [],
+  date = "",
+  tags = [],
+  title,
+}) {
+  const dateObj = new Date(date);
+
   return (
     <div className="header">
       <h1 className="title">{title}</h1>
@@ -9,7 +16,9 @@ export default function PostHeader({ authors = [], date, tags = [], title }) {
         </div>
         <div>
           <div className="label">Published at</div>
-          <div>{date}</div>
+          <div>
+            {dateObj.toLocaleDateString() + " " + dateObj.toLocaleTimeString()}
+          </div>
         </div>
         <div>
           <div className="label">Tags</div>

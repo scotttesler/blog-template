@@ -6,12 +6,14 @@ try {
 } catch (e) {}
 import { ThemeProvider } from "next-themes";
 
-const DEFAULT_LIGHT_BACKGROUND_COLOR = "rgb(255, 255, 255)";
-const DEFAULT_LIGHT_COLOR_1 = "rgb(0, 0, 0)";
+const DEFAULT_LIGHT_BACKGROUND_COLOR = "white";
+const DEFAULT_LIGHT_COLOR_1 = "black";
+const DEFAULT_LIGHT_COLOR_2 = "gray";
 const DEFAULT_LIGHT_THEME_CHANGER_BACKGROUND_COLOR = "gray";
 
-const DEFAULT_DARK_BACKGROUND_COLOR = "rgb(23 23 25)";
-const DEFAULT_DARK_COLOR_1 = "rgb(255, 255, 255)";
+const DEFAULT_DARK_BACKGROUND_COLOR = "black";
+const DEFAULT_DARK_COLOR_1 = "white";
+const DEFAULT_DARK_COLOR_2 = "gray";
 const DEFAULT_DARK_THEME_CHANGER_BACKGROUND_COLOR = "gray";
 
 function MyApp({ Component, pageProps }) {
@@ -30,7 +32,11 @@ function MyApp({ Component, pageProps }) {
             "css.light.color1",
             DEFAULT_LIGHT_COLOR_1
           )};
-          --color-2: rgb(43, 43, 43);
+          --color-2: ${_get(
+            overrides,
+            "css.light.color2",
+            DEFAULT_LIGHT_COLOR_2
+          )};
           --invert-logo: 0;
           --theme-changer-background-color: ${_get(
             overrides,
@@ -51,7 +57,11 @@ function MyApp({ Component, pageProps }) {
             "css.dark.color1",
             DEFAULT_DARK_COLOR_1
           )};
-          --color-2: rgb(171, 171, 171);
+          --color-1: ${_get(
+            overrides,
+            "css.dark.color2",
+            DEFAULT_DARK_COLOR_2
+          )};
           --invert-logo: 1;
           --theme-changer-background-color: ${_get(
             overrides,
