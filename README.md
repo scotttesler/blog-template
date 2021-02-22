@@ -1,7 +1,5 @@
 # 🚧 WIP 🚧
 
----
-
 A minimal blog template, based on markdown and [next.js](https://nextjs.org/).
 
 # Blog posts
