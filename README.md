@@ -11,7 +11,7 @@ Add your blog posts as markdown files into the `posts` directory (the directory 
 Each markdown file needs the following frontmatter (specifically, [gray-matter](https://github.com/jonschlinkert/gray-matter)) in order to be correctly parsed:
 
 Key | Value
-- | -
+--- | ----
 authors | _string[]_.
 date | _string_. Must be in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 thumbnail | _string_. A URI.
