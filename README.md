@@ -2,7 +2,7 @@
 
 ---
 
-A minimal blog, based on markdown and [next.js](https://nextjs.org/).
+A minimal blog template, based on markdown and [next.js](https://nextjs.org/).
 
 # Blog posts
 
