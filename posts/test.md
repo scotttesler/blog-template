@@ -50,7 +50,7 @@ These features **do not work by default**.
 
 ~~strikethrough~~
 
-- [ ] task list
+- [ ]  task list
 
 https://example.com
 
@@ -81,5 +81,5 @@ www.example.com, https://example.com, and contact@example.com.
 
 ## Tasklist
 
-* [ ] to do
-* [x] done
+* [ ]  to do
+* [x]  done

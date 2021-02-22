@@ -2,7 +2,6 @@ import "react-toggle/style.css";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useTheme } from "next-themes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import overrides from "blog.config";
 import Toggle from "react-toggle";
 
 export default function ThemeChanger() {

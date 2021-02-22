@@ -1,6 +1,9 @@
 import "normalize.css";
 import _get from "lodash/get";
-import overrides from "blog.config";
+let overrides = {};
+try {
+  overrides = require("blog.config");
+} catch (e) {}
 import { ThemeProvider } from "next-themes";
 
 const DEFAULT_LIGHT_BACKGROUND_COLOR = "rgb(255, 255, 255)";
@@ -35,7 +38,6 @@ function MyApp({ Component, pageProps }) {
             DEFAULT_LIGHT_THEME_CHANGER_BACKGROUND_COLOR
           )};
           font-size: 16px;
-          ${_get(overrides, "css.light.misc", "")}
         }
 
         [data-theme="dark"] {
@@ -56,7 +58,6 @@ function MyApp({ Component, pageProps }) {
             "css.dark.themeChangerBackgroundColor",
             DEFAULT_DARK_THEME_CHANGER_BACKGROUND_COLOR
           )};
-          ${_get(overrides, "css.dark.misc", "")}
         }
 
         body {
