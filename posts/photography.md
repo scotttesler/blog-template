@@ -1,12 +1,12 @@
----
-authors: [Firstname Lastname]
-date: "2020-01-17T00:00:00Z"
-excerpt: Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
-tags:
-  - photography
-  - yellow
-thumbnail: /images/photography.jpg
-title: Photography
+---json
+{
+  "authors": ["First name", "Other name"],
+  "date": "2020-01-17T00:00:00Z",
+  "excerpt": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+  "tags": ["photography", "yellow"],
+  "thumbnail": "/images/photography.jpg",
+  "title": "Photography"
+}
 ---
 
 # Lorem
