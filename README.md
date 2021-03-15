@@ -12,6 +12,7 @@ Key | Value
 --- | ----
 authors | _string[]_.
 date | _string_. Must be in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+excerpt | _string_. A short excerpt of the article, to display with the thumbnail and title on the home page.
 thumbnail | _string_. A URI.
 tags | _string[]_. ⚠️ Not currently in use. ⚠️
 title | _string_. The post's title.
@@ -46,6 +47,17 @@ module.exports = {
 ```bash
 npm install
 npm run dev
+```
+
+## Docker
+
+If you don't want to install nodejs locally, you can use [Docker](https://docker.com) to develop this application instead.
+
+Once Docker is installed/running, you can create an image and container via:
+
+```bash
+docker build --tag blog-template .
+docker run -p 3000:3000 -v "$(pwd):/app" blog-template
 ```
 
 # Deployment
