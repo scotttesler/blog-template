@@ -1,3 +1,6 @@
+import { format as formatDate } from "date-fns";
+import Link from "next/link";
+
 export default function PostHeader({
   authors = [],
   date = "",
@@ -16,13 +19,20 @@ export default function PostHeader({
         </div>
         <div>
           <div className="label">Published at</div>
-          <div>
-            {dateObj.toLocaleDateString() + " " + dateObj.toLocaleTimeString()}
-          </div>
+          <div>{formatDate(dateObj, "MM/d/Y")}</div>
         </div>
         <div>
           <div className="label">Tags</div>
-          <span>{tags.join("\t")}</span>
+          <span>
+            {tags.map((tag, i) => (
+              <>
+                <Link href="/">
+                  <a>{tag}</a>
+                </Link>
+                {i !== tags.length - 1 && <span>&ensp;</span>}
+              </>
+            ))}
+          </span>
         </div>
       </div>
 

@@ -1,11 +1,9 @@
-import { format } from "date-fns";
-import niceColorPalettes from "nice-color-palettes/500";
+import { format as formatDate } from "date-fns";
 import Avatar from "boring-avatars";
 import Link from "next/link";
 
 export default function PostPreview({
   authors = [],
-  authorImageUrls = [],
   date = "",
   excerpt,
   slug,
@@ -15,16 +13,22 @@ export default function PostPreview({
 }) {
   const dateObj = new Date(date);
 
-  const authorImage = authorImageUrl
-    ? authorImageUrls.map(() => <div>Hi</div>)
-    : authors.map((name) => (
-        <Avatar
-          size={40}
-          name={name}
-          variant="marble"
-          colors={niceColorPalettes[287]}
-        />
-      ));
+  const authorImages = authors.map((name, i) => {
+    return (
+      <>
+        <span title={name}>
+          <Avatar
+            colors={["#a3a948", "#edb92e", "#f85931", "#ce1836", "#009989"]}
+            key={i}
+            name={name}
+            size={30}
+            variant="beam"
+          />
+        </span>
+        {i !== authors.length - 1 && <span> </span>}
+      </>
+    );
+  });
 
   return (
     <div className="post">
@@ -32,13 +36,21 @@ export default function PostPreview({
         <a className="link">
           <img alt={title} className="thumbnail" src={thumbnail} />
           <h1 className="title">{title}</h1>
-          <div className="date">
-            {dateObj.toLocaleDateString() + " " + dateObj.toLocaleTimeString()}
-          </div>
           <div className="excerpt">{excerpt}</div>
-          <div className="tags">{tags.join(", ")}</div>
+          {authorImages}
+          <div className="date">{formatDate(dateObj, "MM/d/Y")}</div>
         </a>
       </Link>
+      <div className="tags">
+        {tags.map((tag, i) => (
+          <>
+            <Link href="/">
+              <a>{tag}</a>
+            </Link>
+            {i !== tags.length - 1 && <span>&ensp;</span>}
+          </>
+        ))}
+      </div>
       <style jsx>{`
         .link {
           text-decoration: none;
@@ -77,7 +89,7 @@ export default function PostPreview({
         }
 
         .title {
-          margin: 0.67em 0 0 0;
+          margin: 1rem 0;
         }
 
         @media (min-width: 920px) {
