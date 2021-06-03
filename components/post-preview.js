@@ -1,6 +1,11 @@
+import { format } from "date-fns";
+import niceColorPalettes from "nice-color-palettes/500";
+import Avatar from "boring-avatars";
 import Link from "next/link";
 
 export default function PostPreview({
+  authors = [],
+  authorImageUrls = [],
   date = "",
   excerpt,
   slug,
@@ -9,6 +14,17 @@ export default function PostPreview({
   thumbnail,
 }) {
   const dateObj = new Date(date);
+
+  const authorImage = authorImageUrl
+    ? authorImageUrls.map(() => <div>Hi</div>)
+    : authors.map((name) => (
+        <Avatar
+          size={40}
+          name={name}
+          variant="marble"
+          colors={niceColorPalettes[287]}
+        />
+      ));
 
   return (
     <div className="post">

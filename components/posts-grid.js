@@ -6,7 +6,7 @@ export default function PostsGrid({ posts }) {
       {posts.map((post) => (
         <PostPreview
           authors={post.authors}
-          authorImageUrl={post.authorImageUrl}
+          authorImageUrls={post.authorImageUrl}
           date={post.date}
           excerpt={post.excerpt}
           key={post.slug}
