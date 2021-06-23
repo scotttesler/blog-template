@@ -1,22 +1,35 @@
+import { format as formatDate } from "date-fns";
 import Link from "next/link";
+import { Fragment } from "react";
 
 export default function PostPreview({
-  excerpt,
+  date = "",
   slug,
   tags = [],
   title,
   thumbnail,
 }) {
+  const dateObj = new Date(date);
+
   return (
     <div className="post">
       <Link as={`/posts/${slug}`} href="/posts/[slug]">
         <a className="link">
           <img alt={title} className="thumbnail" src={thumbnail} />
           <h1 className="title">{title}</h1>
-          <div className="excerpt">{excerpt}</div>
-          <div className="tags">{tags.join(", ")}</div>
+          <div className="date">{formatDate(dateObj, "MM/d/Y")}</div>
         </a>
       </Link>
+      <div className="tags">
+        {tags.map((tag, i) => (
+          <Fragment key={i}>
+            <Link href="#">
+              <a>{tag}</a>
+            </Link>
+            {i !== tags.length - 1 && <span>&ensp;</span>}
+          </Fragment>
+        ))}
+      </div>
       <style jsx>{`
         .link {
           text-decoration: none;
@@ -39,13 +52,19 @@ export default function PostPreview({
           transition: all 0.15s ease;
         }
 
-        .excerpt {
-          margin-bottom: 1rem;
+        .date {
+          color: var(--color-2);
+          font-size: 0.85rem;
+          margin: 0.5rem 0;
         }
 
         .tags {
           font-size: 0.8rem;
           color: var(--color-2);
+        }
+
+        .title {
+          margin: 1rem 0 0.1rem 0;
         }
 
         @media (min-width: 920px) {

@@ -30,12 +30,14 @@ module.exports = {
     dark: {
       backgroundColor: "#010409", // The background color.
       color1: "#2ea043", // The primary text color.
+      color2: "blue", // The secondary text color, for dates and tags on the home page.
       themeChangerBackgroundColor: "#f778ba", // The background color for the theme changer.
     },
     // Light mode.
     light: {
       backgroundColor: "#2ea043", // The background color.
       color1: "#553098", // The primary text color.
+      color2: "blue", // The secondary text color, for dates and tags on the home page.
       themeChangerBackgroundColor: "#693e00", // The background color for the theme changer.
     }
   }
@@ -72,5 +74,5 @@ There are _many_ ways to host a next.js app. I recommend [hosting on Vercel](htt
 
 # Inspiration
 
-- https://github.com/vercel/next.js/tree/canary/examples/blog-starter
-- https://github.com/itsnwa/gridsome-forestry-starter
+- [next.js `blog-starter` example](https://github.com/vercel/next.js/tree/cffdf1e0881aa89453028230b41fc0ea927023db/examples/blog-starter).
+- [Gridsome's Forestry starter](https://github.com/itsnwa/gridsome-forestry-starter/tree/cf2a781e73de5cc06e8bb68a42f60d40cd6d9f6b).

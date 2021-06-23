@@ -17,7 +17,11 @@ export default function ThemeChanger() {
         checked={resolvedTheme === "dark"}
         icons={{
           checked: (
-            <FontAwesomeIcon icon={faMoon} style={{ margin: "-0.16rem 0 0 -0.16rem" }} />
+            <FontAwesomeIcon
+              color="white"
+              icon={faMoon}
+              style={{ margin: "-0.16rem 0 0 -0.16rem" }}
+            />
           ),
           unchecked: (
             <img className="icon" src="/images/theme-changer-icon-sun.svg" />
@@ -28,7 +32,10 @@ export default function ThemeChanger() {
 
       <style global jsx>{`
         .theme-changer .react-toggle-track {
-          background-color: var(--theme-changer-background-color, gray) !important;
+          background-color: var(
+            --theme-changer-background-color,
+            gray
+          ) !important;
         }
 
         .theme-changer .react-toggle-thumb {
