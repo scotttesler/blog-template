@@ -1,5 +1,6 @@
 import { format as formatDate } from "date-fns";
-import Avatar from "boring-avatars";
+import { Avatar, AvatarStack } from "@primer/components";
+// import Avatar from "boring-avatars";
 import Link from "next/link";
 
 export default function PostPreview({
@@ -37,7 +38,24 @@ export default function PostPreview({
           <img alt={title} className="thumbnail" src={thumbnail} />
           <h1 className="title">{title}</h1>
           <div className="excerpt">{excerpt}</div>
-          {authorImages}
+          <AvatarStack>
+            <Avatar
+              alt="Primer"
+              src="https://avatars.githubusercontent.com/primer"
+            />
+            <Avatar
+              alt="GitHub"
+              src="https://avatars.githubusercontent.com/github"
+            />
+            <Avatar
+              alt="Atom"
+              src="https://avatars.githubusercontent.com/atom"
+            />
+            <Avatar
+              alt="Desktop"
+              src="https://avatars.githubusercontent.com/desktop"
+            />
+          </AvatarStack>
           <div className="date">{formatDate(dateObj, "MM/d/Y")}</div>
         </a>
       </Link>
