@@ -1,5 +1,6 @@
 import { format as formatDate } from "date-fns";
 import Link from "next/link";
+import { Fragment } from "react";
 
 export default function PostHeader({
   authors = [],
@@ -25,12 +26,12 @@ export default function PostHeader({
           <div className="label">Tags</div>
           <span>
             {tags.map((tag, i) => (
-              <>
+              <Fragment key={i}>
                 <Link href="/">
                   <a>{tag}</a>
                 </Link>
                 {i !== tags.length - 1 && <span>&ensp;</span>}
-              </>
+              </Fragment>
             ))}
           </span>
         </div>

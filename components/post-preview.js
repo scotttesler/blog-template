@@ -1,7 +1,6 @@
 import { format as formatDate } from "date-fns";
-import { Avatar, AvatarStack } from "@primer/components";
-// import Avatar from "boring-avatars";
 import Link from "next/link";
+import { Fragment } from "react";
 
 export default function PostPreview({
   authors = [],
@@ -14,22 +13,11 @@ export default function PostPreview({
 }) {
   const dateObj = new Date(date);
 
-  const authorImages = authors.map((name, i) => {
-    return (
-      <>
-        <span title={name}>
-          <Avatar
-            colors={["#a3a948", "#edb92e", "#f85931", "#ce1836", "#009989"]}
-            key={i}
-            name={name}
-            size={30}
-            variant="beam"
-          />
-        </span>
-        {i !== authors.length - 1 && <span> </span>}
-      </>
-    );
-  });
+  const authorNames = authors.length ? (
+    <div>
+      <span style={{ fontWeight: "regular" }}>By:</span> {authors.join(", ")}
+    </div>
+  ) : null;
 
   return (
     <div className="post">
@@ -37,36 +25,19 @@ export default function PostPreview({
         <a className="link">
           <img alt={title} className="thumbnail" src={thumbnail} />
           <h1 className="title">{title}</h1>
-          <div className="excerpt">{excerpt}</div>
-          <AvatarStack>
-            <Avatar
-              alt="Primer"
-              src="https://avatars.githubusercontent.com/primer"
-            />
-            <Avatar
-              alt="GitHub"
-              src="https://avatars.githubusercontent.com/github"
-            />
-            <Avatar
-              alt="Atom"
-              src="https://avatars.githubusercontent.com/atom"
-            />
-            <Avatar
-              alt="Desktop"
-              src="https://avatars.githubusercontent.com/desktop"
-            />
-          </AvatarStack>
+          <p>{excerpt}</p>
+          {authorNames}
           <div className="date">{formatDate(dateObj, "MM/d/Y")}</div>
         </a>
       </Link>
       <div className="tags">
         {tags.map((tag, i) => (
-          <>
+          <Fragment key={i}>
             <Link href="/">
               <a>{tag}</a>
             </Link>
             {i !== tags.length - 1 && <span>&ensp;</span>}
-          </>
+          </Fragment>
         ))}
       </div>
       <style jsx>{`
@@ -76,7 +47,6 @@ export default function PostPreview({
 
         .post {
           grid-column: auto / span 2;
-          text-align: center;
         }
 
         .post:hover .thumbnail {
@@ -107,7 +77,8 @@ export default function PostPreview({
         }
 
         .title {
-          margin: 1rem 0;
+          text-align: center;
+          margin: 1rem 0 0.1rem 0;
         }
 
         @media (min-width: 920px) {

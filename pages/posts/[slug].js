@@ -15,11 +15,11 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 
 export default function Post({ post }) {
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
+
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
   }
-
-  const { resolvedTheme } = useTheme();
 
   return (
     <Layout>
