@@ -42,16 +42,18 @@ export default function Post({ post }) {
               allowDangerousHtml
               plugins={[gfm]}
               renderers={{
-                code: ({ language, value }) => (
-                  <SyntaxHighlighter
-                    language={language}
-                    style={
-                      resolvedTheme === "light" ? atomOneLight : atomOneDark
-                    }
-                  >
-                    {value}
-                  </SyntaxHighlighter>
-                ),
+                code: function CodeRenderer({ language, value }) {
+                  return (
+                    <SyntaxHighlighter
+                      language={language}
+                      style={
+                        resolvedTheme === "light" ? atomOneLight : atomOneDark
+                      }
+                    >
+                      {value}
+                    </SyntaxHighlighter>
+                  );
+                },
               }}
             >
               {post.content}
