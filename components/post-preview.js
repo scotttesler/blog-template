@@ -3,9 +3,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 
 export default function PostPreview({
-  authors = [],
   date = "",
-  excerpt,
   slug,
   tags = [],
   title,
@@ -13,27 +11,19 @@ export default function PostPreview({
 }) {
   const dateObj = new Date(date);
 
-  const authorNames = authors.length ? (
-    <div>
-      <span style={{ fontWeight: "regular" }}>By:</span> {authors.join(", ")}
-    </div>
-  ) : null;
-
   return (
     <div className="post">
       <Link as={`/posts/${slug}`} href="/posts/[slug]">
         <a className="link">
           <img alt={title} className="thumbnail" src={thumbnail} />
           <h1 className="title">{title}</h1>
-          <p>{excerpt}</p>
-          {authorNames}
           <div className="date">{formatDate(dateObj, "MM/d/Y")}</div>
         </a>
       </Link>
       <div className="tags">
         {tags.map((tag, i) => (
           <Fragment key={i}>
-            <Link href="/">
+            <Link href="#">
               <a>{tag}</a>
             </Link>
             {i !== tags.length - 1 && <span>&ensp;</span>}
@@ -47,6 +37,7 @@ export default function PostPreview({
 
         .post {
           grid-column: auto / span 2;
+          text-align: center;
         }
 
         .post:hover .thumbnail {
@@ -67,17 +58,12 @@ export default function PostPreview({
           margin: 0.5rem 0;
         }
 
-        .excerpt {
-          margin-bottom: 1rem;
-        }
-
         .tags {
           font-size: 0.8rem;
           color: var(--color-2);
         }
 
         .title {
-          text-align: center;
           margin: 1rem 0 0.1rem 0;
         }
 

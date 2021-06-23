@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps }) {
             "css.dark.color1",
             DEFAULT_DARK_COLOR_1
           )};
-          --color-1: ${_get(
+          --color-2: ${_get(
             overrides,
             "css.dark.color2",
             DEFAULT_DARK_COLOR_2
