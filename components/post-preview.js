@@ -1,4 +1,6 @@
 import { format as formatDate } from "date-fns";
+import colorPalettes from "nice-color-palettes";
+import Avatar from "boring-avatars";
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -17,6 +19,20 @@ export default function PostPreview({
         <a className="link">
           <img alt={title} className="thumbnail" src={thumbnail} />
           <h1 className="title">{title}</h1>
+
+          <div>
+            {[0, 1].map((name, i) => (
+              <span key={i} style={{ marginRight: -8, zIndex: i }}>
+                <Avatar
+                  colors={colorPalettes[49]}
+                  name={name.toString()}
+                  size={20}
+                  variant="beam"
+                />
+              </span>
+            ))}
+          </div>
+
           <div className="date">{formatDate(dateObj, "MM/d/Y")}</div>
         </a>
       </Link>
