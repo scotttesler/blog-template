@@ -1,0 +1,25 @@
+import Link from "next/link";
+import ThemeChanger from "components/theme-changer";
+
+export default function NavBar() {
+  return (
+    <header className="bg-white flex h-24 items-center justify-between sticky top-0">
+      <div className="w-12">
+        <Link href="/">
+          <a>
+            <img alt="settings.site_name" src="/images/all seeing eye.svg" />
+          </a>
+        </Link>
+      </div>
+      <nav>
+        <Link href="/about">
+          <a className="font-bold mr-12 no-underline text-sm">About</a>
+        </Link>
+        <Link href="/contact">
+          <a className="font-bold mr-12 no-underline text-sm">Contact</a>
+        </Link>
+        <ThemeChanger />
+      </nav>
+    </header>
+  );
+}

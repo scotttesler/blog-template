@@ -46,7 +46,7 @@ export default function PostPreview({
           </Fragment>
         ))}
       </div>
-      <style jsx>{`
+      {/* <style jsx>{`
         .link {
           text-decoration: none;
         }
@@ -88,7 +88,7 @@ export default function PostPreview({
             grid-column: auto / span 1;
           }
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

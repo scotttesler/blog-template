@@ -6,6 +6,7 @@ import {
   atomOneLight,
 } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import gfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import ErrorPage from "next/error";
 import Head from "next/head";
 import Layout from "components/layout";
@@ -23,44 +24,42 @@ export default function Post({ post }) {
 
   return (
     <Layout>
-      <div className="container">
-        {router.isFallback ? (
-          <div>Loading…</div>
-        ) : (
-          <article>
-            <Head>
-              <title>{post.title}</title>
-              <meta property="og:image" content={post.thumbnail} />
-            </Head>
-            <PostHeader
-              authors={post.authors}
-              date={post.date}
-              tags={post.tags}
-              title={post.title}
-            />
-            <ReactMarkdown
-              allowDangerousHtml
-              plugins={[gfm]}
-              renderers={{
-                code: function CodeRenderer({ language, value }) {
-                  return (
-                    <SyntaxHighlighter
-                      language={language}
-                      style={
-                        resolvedTheme === "light" ? atomOneLight : atomOneDark
-                      }
-                    >
-                      {value}
-                    </SyntaxHighlighter>
-                  );
-                },
-              }}
-            >
-              {post.content}
-            </ReactMarkdown>
-          </article>
-        )}
-      </div>
+      {router.isFallback ? (
+        <div>Loading…</div>
+      ) : (
+        <article>
+          <Head>
+            <title>{post.title}</title>
+            <meta property="og:image" content={post.thumbnail} />
+          </Head>
+          <PostHeader
+            authors={post.authors}
+            date={post.date}
+            tags={post.tags}
+            title={post.title}
+          />
+          <ReactMarkdown
+            plugins={[gfm]}
+            rehypePlugins={[rehypeRaw]}
+            renderers={{
+              code: function CodeRenderer({ language, value }) {
+                return (
+                  <SyntaxHighlighter
+                    language={language}
+                    style={
+                      resolvedTheme === "light" ? atomOneLight : atomOneDark
+                    }
+                  >
+                    {value}
+                  </SyntaxHighlighter>
+                );
+              },
+            }}
+          >
+            {post.content}
+          </ReactMarkdown>
+        </article>
+      )}
     </Layout>
   );
 }

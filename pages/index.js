@@ -6,10 +6,8 @@ import PostsGrid from "components/posts-grid";
 export default function Index({ posts }) {
   return (
     <Layout>
-      <div className="container">
-        <Hero />
-        <PostsGrid posts={posts} />
-      </div>
+      <Hero />
+      <PostsGrid posts={posts} />
     </Layout>
   );
 }

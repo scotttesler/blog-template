@@ -1,25 +1,8 @@
 export default function Hero() {
   return (
-    <div className="hero">
-      <h1 className="hero-title">Blog template.</h1>
-      <div className="hero-subtitle">Put your tagline here.</div>
-
-      <style jsx>{`
-        .hero {
-          text-align: center;
-          padding: 2rem 0 7rem 0;
-        }
-
-        .hero-title {
-          font-size: 3rem;
-        }
-
-        .hero-subtitle {
-          font-size: 1.15em;
-          line-height: 1.68;
-          opacity: 0.6;
-        }
-      `}</style>
+    <div className="pb-32 pt-16 mx-auto text-center w-[480px]">
+      <h1 className="font-bold mb-8 text-5xl">Simplicity. Aesthetics. Value.</h1>
+      <h2 className="opacity-60 text-xl">Hi there, I'm an independent Digital Designer & Art Director focused on digital design for brands that like to have fun.</h2>
     </div>
   );
 }

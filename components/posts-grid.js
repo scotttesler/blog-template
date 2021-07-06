@@ -2,7 +2,7 @@ import PostPreview from "components/post-preview";
 
 export default function PostsGrid({ posts }) {
   return (
-    <div className="posts">
+    <div className="grid md:grid-cols-2 gap-4">
       {posts.map((post) => (
         <PostPreview
           authors={post.authors}
@@ -15,13 +15,13 @@ export default function PostsGrid({ posts }) {
           title={post.title}
         />
       ))}
-      <style jsx>{`
+      {/* <style jsx>{`
         .posts {
           display: grid;
           grid-gap: 4rem;
           grid-template-columns: 1fr 1fr;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

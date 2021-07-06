@@ -1,4 +1,4 @@
-import "normalize.css";
+import "tailwindcss/tailwind.css";
 import _get from "lodash/get";
 let overrides = {};
 try {
@@ -18,9 +18,9 @@ const DEFAULT_DARK_THEME_CHANGER_BACKGROUND_COLOR = "gray";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider defaultTheme="system">
+    <>
       <Component {...pageProps} />
-      <style global jsx>{`
+      {/* <style global jsx>{`
         :root {
           --background: ${_get(
             overrides,
@@ -75,8 +75,6 @@ function MyApp({ Component, pageProps }) {
             "Avenir Next", Avenir, Roboto, "Helvetica Neue", Arial, sans-serif;
           background: var(--background);
           color: var(--color-1);
-          margin: 0;
-          padding: 0;
           transition: background 0.5s ease;
         }
 
@@ -116,8 +114,8 @@ function MyApp({ Component, pageProps }) {
             padding: 0 11rem;
           }
         }
-      `}</style>
-    </ThemeProvider>
+      `}</style> */}
+    </>
   );
 }
 
