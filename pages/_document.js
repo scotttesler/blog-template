@@ -11,7 +11,6 @@ export default class MyDocument extends Document {
             rel="shortcut icon"
             type="image/x-icon"
           />
-          <link href="/feed.xml" rel="alternate" type="application/rss+xml" />
           <meta name="description" content="Blog template." />
           <script
             async
