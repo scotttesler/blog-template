@@ -1,24 +1,26 @@
-import { getPostBySlug, getAllPosts } from "lib/api";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useTheme } from "next-themes";
 import {
   atomOneDark,
   atomOneLight,
 } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import gfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
+import { getAllPosts, getPostBySlug } from "lib/api";
 import ErrorPage from "next/error";
 import Head from "next/head";
 import Layout from "components/layout";
 import PostHeader from "components/post-header";
 import ReactMarkdown from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import gfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 
 export default function Post({ post }) {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
 
+  // This expands a tweet embedded in a post (like `<blockquote class="twitter-tweet">…</blockquote>`).
+  // https://github.com/vercel/next.js/discussions/15262#discussioncomment-44941
   useEffect(() => {
     const s = document.createElement("script");
     s.setAttribute("src", "https://platform.twitter.com/widgets.js");
@@ -98,6 +100,7 @@ export async function getStaticPaths() {
   const posts = getAllPosts(["slug"]);
 
   return {
+    fallback: false,
     paths: posts.map((post) => {
       return {
         params: {
@@ -105,6 +108,5 @@ export async function getStaticPaths() {
         },
       };
     }),
-    fallback: false,
   };
 }

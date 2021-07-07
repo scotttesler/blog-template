@@ -1,6 +1,6 @@
-import { format as formatDate } from "date-fns";
-import Link from "next/link";
 import { Fragment } from "react";
+import Link from "next/link";
+import { format as formatDate } from "date-fns";
 
 export default function PostPreview({
   date = "",
