@@ -17,7 +17,7 @@ export default function PostPreview({
     <div className="post">
       <Link as={`/posts/${slug}`} href="/posts/[slug]">
         <a className="link">
-          <img alt={title} className="thumbnail" src={thumbnail} />
+          <img alt={title} className="duration-[0.15s] ease-in-out hover:scale-[1.02] transform transition" src={thumbnail} />
           <h1 className="title">{title}</h1>
 
           <div>

@@ -1,12 +1,13 @@
 module.exports = {
   mode: "jit",
   purge: ["./components/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
-  darkMode: "media", // or 'media' or 'class'
-  theme: {
-    extend: {},
-  },
+  darkMode: "class", // or 'media' or 'class'
+  theme: { extend: {}, nightwind: { typography: true } },
   variants: {
-    extend: {},
+    extend: {
+      typography: ["dark"],
+      transform: ["hover", "focus"],
+    },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("nightwind"), require("@tailwindcss/typography")],
 };

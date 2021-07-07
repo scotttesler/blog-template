@@ -14,16 +14,6 @@ export default function Layout({ children }) {
       <NavBar />
       {children}
       <Footer />
-
-      {/* <style jsx>{`
-        .layout {
-          padding: 0;
-        }
-
-        .layout.sticky-header {
-          padding: 6rem 0 0 0;
-        }
-      `}</style> */}
     </div>
   );
 }

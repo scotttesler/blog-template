@@ -1,5 +1,5 @@
 ---
-authors: [Firstname Lastname, Othername Hello]
+authors: [Frank Sinatra, Carole King]
 date: "2020-01-18T00:00:00Z"
 excerpt: The banana fruits grow from a banana blossom in hanging clusters, also called a bunch or banana stem.
 tags:

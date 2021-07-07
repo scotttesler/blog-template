@@ -3,11 +3,15 @@ import ThemeChanger from "components/theme-changer";
 
 export default function NavBar() {
   return (
-    <header className="bg-white flex h-24 items-center justify-between sticky top-0">
+    <header className="flex h-24 items-center justify-between sticky top-0">
       <div className="w-12">
         <Link href="/">
           <a>
-            <img alt="settings.site_name" src="/images/all seeing eye.svg" />
+            <img
+              className="dark:invert"
+              alt="settings.site_name"
+              src="/images/all seeing eye.svg"
+            />
           </a>
         </Link>
       </div>

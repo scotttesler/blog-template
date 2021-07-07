@@ -39,22 +39,29 @@ export default function Post({ post }) {
             title={post.title}
           />
           <ReactMarkdown
-            plugins={[gfm]}
-            rehypePlugins={[rehypeRaw]}
-            renderers={{
-              code: function CodeRenderer({ language, value }) {
-                return (
+            className="prose"
+            components={{
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || "");
+                return !inline && match ? (
                   <SyntaxHighlighter
-                    language={language}
                     style={
                       resolvedTheme === "light" ? atomOneLight : atomOneDark
                     }
-                  >
-                    {value}
-                  </SyntaxHighlighter>
+                    language={match[1]}
+                    PreTag="div"
+                    children={String(children).replace(/\n$/, "")}
+                    {...props}
+                  />
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
                 );
               },
             }}
+            plugins={[gfm]}
+            rehypePlugins={[rehypeRaw]}
           >
             {post.content}
           </ReactMarkdown>

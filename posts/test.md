@@ -1,5 +1,5 @@
 ---
-authors: [Firstname Lastname]
+authors: [John Williams]
 date: "2020-01-17T00:00:00Z"
 excerpt: Hello world
 tags:
@@ -27,7 +27,7 @@ Changes are automatically rendered as you type.
 
 ## How about some code?
 
-~~~js
+```js
 var React = require('react');
 var Markdown = require('react-markdown');
 
@@ -35,7 +35,7 @@ React.render(
   <Markdown source="# Your markdown here" />,
   document.getElementById('content')
 );
-~~~
+```
 
 Pretty neat, eh?
 
