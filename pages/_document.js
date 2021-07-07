@@ -12,14 +12,15 @@ export default class MyDocument extends Document {
             type="image/x-icon"
           />
           <meta name="description" content="Blog template." />
+          {/* <script
+            async
+            charSet="utf-8"
+            src="https://platform.twitter.com/widgets.js"
+          ></script> */}
         </Head>
         <body>
           <Main />
           <NextScript />
-          <script
-            src="https://platform.twitter.com/widgets.js"
-            charSet="utf-8"
-          ></script>
         </body>
       </Html>
     );

@@ -1,4 +1,5 @@
 import { getPostBySlug, getAllPosts } from "lib/api";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
 import {
@@ -17,6 +18,13 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 export default function Post({ post }) {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    const s = document.createElement("script");
+    s.setAttribute("src", "https://platform.twitter.com/widgets.js");
+    s.setAttribute("async", "true");
+    document.head.appendChild(s);
+  }, []);
 
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
@@ -50,9 +58,10 @@ export default function Post({ post }) {
                     }
                     language={match[1]}
                     PreTag="div"
-                    children={String(children).replace(/\n$/, "")}
                     {...props}
-                  />
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
                 ) : (
                   <code className={className} {...props}>
                     {children}

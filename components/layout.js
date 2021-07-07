@@ -12,7 +12,7 @@ export default function Layout({ children }) {
   return (
     <div className="container max-w-screen-lg mx-auto px-8">
       <NavBar />
-      {children}
+      <div>{children}</div>
       <Footer />
     </div>
   );
