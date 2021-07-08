@@ -43,5 +43,5 @@
     "dev": "next",
     "start": "next start"
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
