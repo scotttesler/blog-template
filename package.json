@@ -28,7 +28,8 @@
     "eslint": "^7.29.0",
     "eslint-config-next": "^11.0.1",
     "postcss": "^8.3.5",
-    "tailwindcss": "^2.2.4"
+    "tailwindcss": "^2.2.4",
+    "tailwindcss-hyphens": "^0.1.0"
   },
   "homepage": "https://github.com/scotttesler/blog-template#readme",
   "license": "MIT",

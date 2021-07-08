@@ -1,7 +1,11 @@
 module.exports = {
   darkMode: "class", // or 'media' or 'class'
   mode: "jit",
-  plugins: [require("nightwind"), require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("nightwind"),
+    require("tailwindcss-hyphens"),
+  ],
   purge: ["./components/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {

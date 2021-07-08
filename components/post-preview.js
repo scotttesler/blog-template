@@ -12,7 +12,7 @@ export default function PostPreview({
   const dateObj = new Date(date);
 
   return (
-    <div className="text-center">
+    <div className="break-words hyphens-auto text-center">
       <Link as={`/posts/${slug}`} href="/posts/[slug]">
         <a className="link">
           <img

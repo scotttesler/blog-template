@@ -12,7 +12,9 @@ export default function PostHeader({
 
   return (
     <div className="pb-16 pt-9">
-      <h1 className="font-bold mb-16 text-7xl">{title}</h1>
+      <h1 className="break-words font-bold hyphens-auto mb-16 text-7xl">
+        {title}
+      </h1>
       <div className="flex text-sm">
         <div className="mr-16">
           <div className="mb-2 font-bold">Authors</div>
