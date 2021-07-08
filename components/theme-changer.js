@@ -1,30 +1,35 @@
 import "react-toggle/style.css";
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
-import { useTheme } from "next-themes";
+
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Toggle from "react-toggle";
+import { useTheme } from "next-themes";
 
 export default function ThemeChanger() {
   const { resolvedTheme, setTheme } = useTheme();
 
   function handleToggle() {
-    setTheme(resolvedTheme === "light" ? "dark" : "light");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   }
 
   return (
-    <div className="theme-changer">
+    <span className="align-middle theme-changer">
       <Toggle
-        checked={resolvedTheme === "dark"}
+        defaultChecked={resolvedTheme === "dark"}
         icons={{
           checked: (
             <FontAwesomeIcon
+              className="mt-[-0.2rem]"
               color="white"
               icon={faMoon}
-              style={{ margin: "-0.16rem 0 0 -0.16rem" }}
             />
           ),
           unchecked: (
-            <img className="icon" src="/images/theme-changer-icon-sun.svg" />
+            <FontAwesomeIcon
+              className="ml-[-0.2rem] mt-[-0.2rem]"
+              color="yellow"
+              icon={faSun}
+            />
           ),
         }}
         onChange={handleToggle}
@@ -32,10 +37,7 @@ export default function ThemeChanger() {
 
       <style global jsx>{`
         .theme-changer .react-toggle-track {
-          background-color: var(
-            --theme-changer-background-color,
-            gray
-          ) !important;
+          background-color: gray !important;
         }
 
         .theme-changer .react-toggle-thumb {
@@ -43,19 +45,6 @@ export default function ThemeChanger() {
           box-shadow: none;
         }
       `}</style>
-
-      <style jsx>{`
-        .icon {
-          margin: -0.25rem;
-          max-width: unset;
-          width: 175%;
-        }
-
-        .theme-changer {
-          display: inline;
-          vertical-align: middle;
-        }
-      `}</style>
-    </div>
+    </span>
   );
 }

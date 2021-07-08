@@ -1,15 +1,13 @@
-import { getAllPosts } from "lib/api";
 import Hero from "components/hero";
 import Layout from "components/layout";
 import PostsGrid from "components/posts-grid";
+import { getAllPosts } from "lib/api";
 
 export default function Index({ posts }) {
   return (
     <Layout>
-      <div className="container">
-        <Hero />
-        <PostsGrid posts={posts} />
-      </div>
+      <Hero />
+      <PostsGrid posts={posts} />
     </Layout>
   );
 }

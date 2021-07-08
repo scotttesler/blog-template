@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Footer from "components/footer";
-import Header from "components/header";
+import NavBar from "components/nav-bar";
 
 export default function Layout({ children }) {
   const [mounted, setMounted] = useState(false);
@@ -10,20 +10,10 @@ export default function Layout({ children }) {
   if (!mounted) return null;
 
   return (
-    <div className="layout">
-      <Header />
-      {children}
+    <div className="container max-w-screen-lg mx-auto px-8">
+      <NavBar />
+      <div>{children}</div>
       <Footer />
-
-      <style jsx>{`
-        .layout {
-          padding: 0;
-        }
-
-        .layout.sticky-header {
-          padding: 6rem 0 0 0;
-        }
-      `}</style>
     </div>
   );
 }

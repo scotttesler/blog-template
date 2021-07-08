@@ -1,6 +1,6 @@
 ---json
 {
-  "authors": ["First name", "Other name"],
+  "authors": ["Paul McCartney", "John Lennon"],
   "date": "2020-01-17T00:00:00Z",
   "excerpt": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
   "tags": ["photography", "yellow"],

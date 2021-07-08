@@ -1,6 +1,6 @@
-import { format as formatDate } from "date-fns";
-import Link from "next/link";
 import { Fragment } from "react";
+import Link from "next/link";
+import { format as formatDate } from "date-fns";
 
 export default function PostHeader({
   authors = [],
@@ -11,19 +11,19 @@ export default function PostHeader({
   const dateObj = new Date(date);
 
   return (
-    <div className="header">
-      <h1 className="title">{title}</h1>
-      <div className="info">
-        <div>
-          <div className="label">Authors</div>
+    <div className="pb-16 pt-9">
+      <h1 className="font-bold mb-16 text-7xl">{title}</h1>
+      <div className="flex text-sm">
+        <div className="mr-16">
+          <div className="mb-2 font-bold">Authors</div>
           <span>{authors.join(", ")}</span>
         </div>
-        <div>
-          <div className="label">Published at</div>
+        <div className="mr-16">
+          <div className="mb-2 font-bold">Published at</div>
           <div>{formatDate(dateObj, "MM/d/Y")}</div>
         </div>
         <div>
-          <div className="label">Tags</div>
+          <div className="mb-2 font-bold">Tags</div>
           <span>
             {tags.map((tag, i) => (
               <Fragment key={i}>
@@ -36,34 +36,6 @@ export default function PostHeader({
           </span>
         </div>
       </div>
-
-      <style jsx>{`
-        .header {
-          padding-top: 2.25rem;
-          padding-bottom: 4rem;
-        }
-
-        .info {
-          display: flex;
-          flex-wrap: wrap;
-          font-size: 0.8rem;
-        }
-
-        .info > div {
-          margin-right: 4rem;
-        }
-
-        .label {
-          font-weight: 700;
-          margin-bottom: 0.5rem;
-        }
-
-        .title {
-          font-size: 4rem;
-          margin: 0 0 4rem 0;
-          padding: 0;
-        }
-      `}</style>
     </div>
   );
 }

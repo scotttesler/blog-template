@@ -19,31 +19,6 @@ title | _string_. The post's title.
 
 On the home page, posts are ordered by date descending.
 
-# Configuration
-
-The blog is configurable through the use of a `blog.config.js`. An example `blog.config.js` is below, listing all available options:
-
-```javascript
-module.exports = {
-  css: {
-    // Dark mode.
-    dark: {
-      backgroundColor: "#010409", // The background color.
-      color1: "#2ea043", // The primary text color.
-      color2: "blue", // The secondary text color, for dates and tags on the home page.
-      themeChangerBackgroundColor: "#f778ba", // The background color for the theme changer.
-    },
-    // Light mode.
-    light: {
-      backgroundColor: "#2ea043", // The background color.
-      color1: "#553098", // The primary text color.
-      color2: "blue", // The secondary text color, for dates and tags on the home page.
-      themeChangerBackgroundColor: "#693e00", // The background color for the theme changer.
-    }
-  }
-};
-```
-
 # Development
 
 ```bash
