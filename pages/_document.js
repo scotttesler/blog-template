@@ -12,11 +12,6 @@ export default class MyDocument extends Document {
             type="image/x-icon"
           />
           <meta name="description" content="Blog template." />
-          {/* <script
-            async
-            charSet="utf-8"
-            src="https://platform.twitter.com/widgets.js"
-          ></script> */}
         </Head>
         <body>
           <Main />

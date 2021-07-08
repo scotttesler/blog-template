@@ -1,7 +1,8 @@
 module.exports = {
-  mode: "jit",
-  purge: ["./components/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class", // or 'media' or 'class'
+  mode: "jit",
+  plugins: [require("nightwind"), require("@tailwindcss/typography")],
+  purge: ["./components/**/*.{js,ts,jsx,tsx}", "./pages/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       typography: {
@@ -16,9 +17,8 @@ module.exports = {
   },
   variants: {
     extend: {
-      typography: ["dark"],
       transform: ["hover", "focus"],
+      typography: ["dark"],
     },
   },
-  plugins: [require("nightwind"), require("@tailwindcss/typography")],
 };
