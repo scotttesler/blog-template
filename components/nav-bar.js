@@ -24,15 +24,7 @@ export default function NavBar() {
           </svg>
         </a>
       </Link>
-      <nav>
-        <Link href="/about">
-          <a className="font-bold mr-12 no-underline text-sm">About</a>
-        </Link>
-        <Link href="/contact">
-          <a className="font-bold mr-12 no-underline text-sm">Contact</a>
-        </Link>
-        <ThemeChanger />
-      </nav>
+      <ThemeChanger />
     </header>
   );
 }

@@ -27,9 +27,7 @@ export default function PostPreview({
       <div className="text-sm">
         {tags.map((tag, i) => (
           <Fragment key={i}>
-            <Link href="#">
-              <a>{tag}</a>
-            </Link>
+            {tag}
             {i !== tags.length - 1 && <span>&ensp;</span>}
           </Fragment>
         ))}
