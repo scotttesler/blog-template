@@ -8,7 +8,7 @@ export default function NavBar() {
     <header className="flex h-24 items-center justify-between">
       <Link href="/">
         <a>
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <svg width="50" height="50" fill="none" viewBox="0 0 24 24">
             <path
               stroke="currentColor"
               strokeLinecap="round"
