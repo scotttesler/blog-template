@@ -31,8 +31,21 @@ export function getPostSlugs(): string[] {
     .map((fileName) => fileName.replace(/\.mdx$/, ""));
 }
 
+function isSafeSlug(slug: string) {
+  return /^[a-zA-Z0-9][a-zA-Z0-9._-]*$/.test(slug);
+}
+
 export function getPostBySlug(slug: string): Post | null {
-  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+  if (!isSafeSlug(slug)) {
+    return null;
+  }
+
+  const fullPath = path.resolve(postsDirectory, `${slug}.mdx`);
+  const relative = path.relative(postsDirectory, fullPath);
+
+  if (relative.startsWith("..") || path.isAbsolute(relative)) {
+    return null;
+  }
 
   if (!fs.existsSync(fullPath)) {
     return null;
