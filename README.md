@@ -51,7 +51,7 @@ For heavy client-only libraries (Three.js, etc.), mark the component with `'use 
 
 ## Development
 
-Requires [Node.js](https://nodejs.org/) Current (see `.nvmrc`).
+Requires [Node.js](https://nodejs.org/) 24 LTS (see `.nvmrc`).
 
 ```bash
 npm install
