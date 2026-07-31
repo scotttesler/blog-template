@@ -14,7 +14,7 @@ export type Post = {
   title: string;
 };
 
-const postsDirectory = path.join(process.cwd(), "content/posts");
+const postsDirectory = path.join(process.cwd(), "src/content/posts");
 
 function isPostFile(fileName: string) {
   return fileName.endsWith(".mdx");

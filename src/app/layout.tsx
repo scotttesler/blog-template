@@ -3,7 +3,7 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://blog-template.example"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://blog-template.example"),
   title: {
     default: "Blog",
     template: "%s · Blog",

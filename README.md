@@ -9,10 +9,23 @@ A minimal blog template built with [Next.js](https://nextjs.org/) App Router, Ty
 - Paginated home page
 - Light / dark theme (`next-themes`)
 - Static generation for posts and listing pages
+- `loading` / `error` UI, sitemap, and robots
+
+## Project structure
+
+```text
+src/
+  app/                 # App Router routes, layouts, loading/error
+  components/          # UI + MDX embeds
+  content/posts/       # MDX posts
+  lib/                 # Post helpers, pagination
+  mdx-components.tsx   # Global MDX component map
+public/                # Static assets
+```
 
 ## Blog posts
 
-Add posts as `.mdx` files in `content/posts/`.
+Add posts as `.mdx` files in `src/content/posts/`.
 
 Each file needs this frontmatter:
 
@@ -29,7 +42,7 @@ Posts are ordered by date descending on the home page.
 
 ### Interactive components
 
-Global MDX components are registered in `mdx-components.tsx` (for example `Counter` and `SimpleChart`).
+Global MDX components are registered in `src/mdx-components.tsx` (for example `Counter` and `SimpleChart`).
 
 Use them directly in a post:
 
@@ -67,11 +80,11 @@ npm start
 
 ## Pagination
 
-The home page shows a fixed page size (`POSTS_PER_PAGE` in `lib/posts.ts`). Later pages live at `/page/2`, `/page/3`, and so on.
+The home page shows a fixed page size (`POSTS_PER_PAGE` in `src/lib/posts.ts`). Later pages live at `/page/2`, `/page/3`, and so on.
 
 ## Deployment
 
-Before production, set a real site URL in `app/layout.tsx` (`metadataBase`) so Open Graph images resolve correctly.
+Set `NEXT_PUBLIC_SITE_URL` to your production origin (used for `metadataBase`, sitemap, and robots).
 
 Host on any Next.js platform. [Vercel](https://vercel.com/docs/frameworks/nextjs) is the simplest path for this template.
 
@@ -79,3 +92,4 @@ Host on any Next.js platform. [Vercel](https://vercel.com/docs/frameworks/nextjs
 
 - [Next.js blog starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter)
 - [Next.js MDX guide](https://nextjs.org/docs/app/guides/mdx)
+- [Next.js project structure](https://nextjs.org/docs/app/getting-started/project-structure)
