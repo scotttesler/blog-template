@@ -1,53 +1,95 @@
-# 🚧 WIP 🚧
+# Blog template
 
-A minimal blog template, based on markdown and [next.js](https://nextjs.org/).
+A minimal blog template built with [Next.js](https://nextjs.org/) App Router, TypeScript, Tailwind CSS, and [MDX](https://mdxjs.com/).
 
-# Blog posts
+## Features
 
-Add your blog posts as markdown files into the `posts` directory (the directory currently contains 5 example posts).
+- Markdown/MDX posts with YAML frontmatter
+- React components inside posts (charts, widgets, etc.)
+- Paginated home page
+- Light / dark theme (`next-themes`)
+- Static generation for posts and listing pages
+- `loading` / `error` UI, sitemap, and robots
 
-Each markdown file needs the following frontmatter (specifically, [gray-matter](https://github.com/jonschlinkert/gray-matter)) in order to be correctly parsed:
+## Project structure
 
-Key | Value
---- | ----
-authors | _string[]_.
-date | _string_. Must be in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-excerpt | _string_. A short excerpt of the article, to display with the thumbnail and title on the home page.
-thumbnail | _string_. A URI.
-tags | _string[]_. ⚠️ Not currently in use. ⚠️
-title | _string_. The post's title.
+```text
+src/
+  app/                 # App Router routes, layouts, loading/error
+  components/          # UI + MDX embeds
+  content/posts/       # MDX posts
+  lib/                 # Post helpers, pagination
+  mdx-components.tsx   # Global MDX component map
+public/                # Static assets
+```
 
-On the home page, posts are ordered by date descending.
+## Blog posts
 
-# Development
+Add posts as `.mdx` files in `src/content/posts/`.
+
+Each file needs this frontmatter:
+
+| Key | Value |
+| --- | ---- |
+| authors | `string[]` |
+| date | `string` in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) |
+| excerpt | `string` short summary for cards / SEO |
+| thumbnail | `string` path or URI under `public/` |
+| tags | `string[]` |
+| title | `string` |
+
+Posts are ordered by date descending on the home page.
+
+### Interactive components
+
+Global MDX components are registered in `src/mdx-components.tsx` (for example `Counter` and `SimpleChart`).
+
+Use them directly in a post:
+
+```mdx
+<Counter initial={1} />
+
+<SimpleChart caption="Weekly reads" points={[4, 8, 6, 12]} />
+```
+
+Or import a local component in the MDX file:
+
+```mdx
+import { MyScene } from '@/components/mdx/my-scene'
+
+<MyScene />
+```
+
+For heavy client-only libraries (Three.js, etc.), mark the component with `'use client'` and load it with `next/dynamic` if you need to avoid SSR.
+
+## Development
+
+Requires [Node.js](https://nodejs.org/) 24 LTS (see `.nvmrc`).
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Docker
-
-If you don't want to install nodejs locally, you can use [Docker](https://docker.com) to develop this application instead.
-
-Once Docker is installed/running, you can create an image and container via:
+Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
-docker build --tag blog-template .
-docker run -p 3000:3000 -v "$(pwd):/app" blog-template
+npm run build
+npm start
 ```
 
-# Deployment
+## Pagination
 
-There are _many_ ways to host a next.js app. I recommend [hosting on Vercel](https://vercel.com/docs/next.js/overview).
+The home page shows a fixed page size (`POSTS_PER_PAGE` in `src/lib/posts.ts`). Later pages live at `/page/2`, `/page/3`, and so on.
 
-# To do
+## Deployment
 
-- [ ] Increase the amount of configuration.
-  - [ ] Change favicon.
-  - [ ] Change blog icon in navbar.
+Set `NEXT_PUBLIC_SITE_URL` to your production origin (used for `metadataBase`, sitemap, and robots).
 
-# Inspiration
+Host on any Next.js platform. [Vercel](https://vercel.com/docs/frameworks/nextjs) is the simplest path for this template.
 
-- [next.js `blog-starter` example](https://github.com/vercel/next.js/tree/cffdf1e0881aa89453028230b41fc0ea927023db/examples/blog-starter).
-- [Gridsome's Forestry starter](https://github.com/itsnwa/gridsome-forestry-starter/tree/cf2a781e73de5cc06e8bb68a42f60d40cd6d9f6b).
+## Inspiration
+
+- [Next.js blog starter](https://github.com/vercel/next.js/tree/canary/examples/blog-starter)
+- [Next.js MDX guide](https://nextjs.org/docs/app/guides/mdx)
+- [Next.js project structure](https://nextjs.org/docs/app/getting-started/project-structure)

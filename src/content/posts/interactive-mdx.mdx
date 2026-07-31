@@ -1,0 +1,45 @@
+---
+authors: ["Scott Tesler"]
+date: "2026-07-31T00:00:00Z"
+excerpt: Embed React components between paragraphs — counters, charts, and more.
+tags:
+  - mdx
+  - interactive
+thumbnail: /images/photography.jpg
+title: Interactive MDX
+---
+
+Blog posts are plain MDX. That means you can mix markdown with real React components.
+
+## A live counter
+
+Click the buttons. State lives in the component, right in the middle of the article.
+
+<Counter initial={3} />
+
+## A simple chart
+
+No heavy charting library required for a quick illustration — this SVG line chart is a local component registered in `mdx-components.tsx`.
+
+<SimpleChart caption="Example metric over time" points={[8, 14, 11, 22, 18, 30, 26]} />
+
+## Still just markdown
+
+GFM still works: tables, task lists, and fenced code.
+
+| Feature | Support |
+| :-----: | ------- |
+| MDX     | yes     |
+| GFM     | yes     |
+
+- [x] Write in MDX
+- [x] Drop in components
+- [ ] Add Three.js when you need it (`'use client'` + dynamic import)
+
+```ts
+export function hello(name: string) {
+  return `Hello, ${name}`;
+}
+```
+
+For WebGL or three.js scenes, add a client component and import it the same way — keep heavy deps out of the default template until a post needs them.
