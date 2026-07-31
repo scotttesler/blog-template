@@ -1,8 +1,0 @@
-.DS_Store
-.git
-.github
-.next
-node_modules
-Dockerfile
-LICENSE
-README.md

@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  @apply bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100;
+}
+
+.prose {
+  --tw-prose-body: var(--color-neutral-800);
+  --tw-prose-headings: var(--color-neutral-900);
+  --tw-prose-links: var(--color-neutral-900);
+  --tw-prose-bold: var(--color-neutral-900);
+  --tw-prose-code: var(--color-neutral-900);
+  --tw-prose-pre-bg: var(--color-neutral-100);
+}
+
+.dark .prose {
+  --tw-prose-body: var(--color-neutral-200);
+  --tw-prose-headings: var(--color-neutral-50);
+  --tw-prose-links: var(--color-neutral-50);
+  --tw-prose-bold: var(--color-neutral-50);
+  --tw-prose-code: var(--color-neutral-50);
+  --tw-prose-pre-bg: var(--color-neutral-900);
+  --tw-prose-quotes: var(--color-neutral-300);
+  --tw-prose-quote-borders: var(--color-neutral-600);
+  --tw-prose-hr: var(--color-neutral-700);
+  --tw-prose-th-borders: var(--color-neutral-600);
+  --tw-prose-td-borders: var(--color-neutral-700);
+}
+
+.prose pre {
+  @apply overflow-x-auto rounded-lg border border-neutral-200 p-4 dark:border-neutral-800;
+}
+
+.prose code {
+  @apply rounded px-1 py-0.5 text-[0.9em];
+}
+
+.prose pre code {
+  @apply bg-transparent p-0;
+}
+
+.dark .prose pre code span {
+  color: var(--shiki-dark) !important;
+}
+
+.link {
+  @apply text-inherit no-underline;
+}
