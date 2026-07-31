@@ -41,6 +41,7 @@ export default async function PostPage({ params }: PageProps) {
     notFound();
   }
 
+  // Relative import keeps webpack's MDX context stable; @/ aliases can fail here.
   const { default: Content } = await import(
     `../../../content/posts/${post.slug}.mdx`
   );

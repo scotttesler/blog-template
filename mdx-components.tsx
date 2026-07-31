@@ -8,14 +8,23 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...components,
     Counter,
     SimpleChart,
-    img: (props) => (
-      <Image
-        sizes="100vw"
-        style={{ width: "100%", height: "auto" }}
-        width={1200}
-        height={630}
-        {...(props as ImageProps)}
-      />
-    ),
+    img: (props) => {
+      const { alt = "", src, ...rest } = props as ImageProps;
+      if (!src || typeof src !== "string") {
+        return null;
+      }
+
+      return (
+        <Image
+          alt={alt}
+          height={630}
+          sizes="100vw"
+          src={src}
+          style={{ width: "100%", height: "auto" }}
+          width={1200}
+          {...rest}
+        />
+      );
+    },
   };
 }
