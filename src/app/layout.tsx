@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     default: "Blog",
     template: "%s · Blog",
   },
-  description: "A modern MDX blog template.",
+  description: "Field notes, small experiments, and everyday observations.",
 };
 
 export default function RootLayout({
