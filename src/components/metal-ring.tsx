@@ -1,18 +1,20 @@
 "use client";
 
-import type { MetalFx as MetalFxComponent, MetalFxVariant } from "metal-fx";
+import type * as MetalFxModule from "metal-fx";
+import type { MetalFxVariant, PresetName, PresetTheme } from "metal-fx";
 import { useTheme } from "next-themes";
 import {
   useEffect,
   useId,
-  useRef,
   useState,
   useSyncExternalStore,
   type ComponentProps,
   type ReactElement,
 } from "react";
 
-let loadedMetalFx: typeof MetalFxComponent | null = null;
+const preset: PresetName = "chromatic";
+
+let metalFx: typeof MetalFxModule | null = null;
 let metalFxLoad: Promise<void> | undefined;
 const metalFxListeners = new Set<() => void>();
 
@@ -23,10 +25,9 @@ async function loadMetalFx() {
     return;
   }
 
-  const { createInstance, isMetalFxSupported, MetalFx } =
-    await import("metal-fx");
+  const metalFxModule = await import("metal-fx");
 
-  if (!isMetalFxSupported()) {
+  if (!metalFxModule.isMetalFxSupported()) {
     return;
   }
 
@@ -34,7 +35,7 @@ async function loadMetalFx() {
   // WebGL renderer, and the old context's late "context lost" event then
   // stops the next renderer, so rings that remount after a page navigation
   // never appear. An idle, detached instance keeps the renderer alive.
-  createInstance({
+  metalFxModule.createInstance({
     cornerRadius: 0,
     cssHeight: 8,
     cssWidth: 8,
@@ -43,7 +44,7 @@ async function loadMetalFx() {
     paused: true,
   });
 
-  loadedMetalFx = MetalFx;
+  metalFx = metalFxModule;
   metalFxListeners.forEach((onLoad) => onLoad());
 }
 
@@ -65,15 +66,17 @@ function subscribeToMetalFx(onLoad: () => void) {
 }
 
 function getMetalFxLoaded() {
-  return loadedMetalFx !== null;
+  return metalFx !== null;
 }
 
 function getServerMetalFxLoaded() {
   return false;
 }
 
-function LoadedMetalFx(props: ComponentProps<typeof MetalFxComponent>) {
-  const MetalFx = loadedMetalFx!;
+function LoadedMetalFx(
+  props: ComponentProps<typeof MetalFxModule.MetalFx>,
+) {
+  const { MetalFx } = metalFx!;
   return <MetalFx {...props} />;
 }
 
@@ -156,7 +159,17 @@ function getServerReducedMotion() {
   return false;
 }
 
-const themeRepaintMs = 250;
+// A paused ring would keep its last frame through a theme change, so under
+// reduced motion the rings keep drawing with the shader clock stopped.
+function syncSharedPreset(reducedMotion: boolean, theme: PresetTheme) {
+  const { PRESETS, setSharedPreset, setSharedPresetMode } = metalFx!;
+  if (reducedMotion) {
+    setSharedPresetMode({ ...PRESETS[preset].modes[theme], speed: 0 });
+  } else {
+    setSharedPresetMode(null);
+    setSharedPreset(preset, theme);
+  }
+}
 
 type MetalRingProps = {
   children: ReactElement;
@@ -179,72 +192,19 @@ export function MetalRing({ children, variant }: MetalRingProps) {
     getServerPlainControlInUse,
   );
   const showMetal = metalFxLoaded && !plainControlInUse;
-  const metalFxRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "light" ? "light" : "dark";
-  const [themeRepaint, setThemeRepaint] = useState({ done: true, theme });
   const reducedMotion = useSyncExternalStore(
     subscribeToReducedMotion,
     getReducedMotion,
     getServerReducedMotion,
   );
 
-  // A paused ring keeps its last frame, and metal-fx only draws rings that
-  // are on screen in a visible tab. After a theme change, the ring runs
-  // until it has drawn on screen in the new colors, then freezes again.
-  if (themeRepaint.theme !== theme) {
-    setThemeRepaint({ done: !showMetal, theme });
-  }
-
   useEffect(() => {
-    const ring = metalFxRef.current;
-    if (themeRepaint.done || !ring) {
-      return;
+    if (metalFxLoaded) {
+      syncSharedPreset(reducedMotion, theme);
     }
-
-    let frame = 0;
-    let lastFrameAt: number | undefined;
-    let onScreen = false;
-    let onScreenMs = 0;
-
-    const countFrame = (now: number) => {
-      if (
-        lastFrameAt !== undefined &&
-        ring.dataset.theme === themeRepaint.theme
-      ) {
-        onScreenMs += now - lastFrameAt;
-      }
-
-      if (onScreenMs >= themeRepaintMs) {
-        setThemeRepaint({ done: true, theme: themeRepaint.theme });
-        return;
-      }
-
-      lastFrameAt = now;
-      frame = requestAnimationFrame(countFrame);
-    };
-
-    const restartCounting = () => {
-      cancelAnimationFrame(frame);
-      lastFrameAt = undefined;
-      if (onScreen && document.visibilityState === "visible") {
-        frame = requestAnimationFrame(countFrame);
-      }
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      onScreen = entries.at(-1)?.isIntersecting ?? false;
-      restartCounting();
-    });
-    observer.observe(ring);
-    document.addEventListener("visibilitychange", restartCounting);
-
-    return () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", restartCounting);
-      cancelAnimationFrame(frame);
-    };
-  }, [themeRepaint]);
+  }, [metalFxLoaded, reducedMotion, theme]);
 
   if (!showMetal) {
     return (
@@ -257,8 +217,7 @@ export function MetalRing({ children, variant }: MetalRingProps) {
   return (
     <LoadedMetalFx
       disableGlow={reducedMotion}
-      paused={reducedMotion && themeRepaint.done}
-      ref={metalFxRef}
+      preset={preset}
       theme={theme}
       variant={variant}
     >
