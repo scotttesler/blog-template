@@ -19,7 +19,7 @@ src/
   app/                 # App Router routes, layouts, loading/error
   components/          # UI + MDX embeds
   content/posts/       # MDX posts
-  lib/                 # Post helpers, pagination, hooks
+  lib/                 # Post helpers, pagination
   mdx-components.tsx   # Global MDX component map
 public/                # Static assets
 ```

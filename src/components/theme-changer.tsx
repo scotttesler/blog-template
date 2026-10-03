@@ -1,11 +1,27 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useMounted } from "@/lib/use-mounted";
+import { useSyncExternalStore } from "react";
+
+function subscribe() {
+  return () => {};
+}
+
+function getClientSnapshot() {
+  return true;
+}
+
+function getServerSnapshot() {
+  return false;
+}
 
 export function ThemeChanger() {
   const { resolvedTheme, setTheme } = useTheme();
-  const mounted = useMounted();
+  const mounted = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
 
   const isDark = mounted && resolvedTheme === "dark";
 
