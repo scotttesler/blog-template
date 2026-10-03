@@ -1,5 +1,3 @@
 # Problem
 
 # Solution
-
-# Test(s)
