@@ -73,8 +73,8 @@ function getServerMetalFxLoaded() {
 }
 
 function LoadedMetalFx(props: ComponentProps<typeof MetalFxComponent>) {
-  const MetalFx = loadedMetalFx;
-  return MetalFx && <MetalFx {...props} />;
+  const MetalFx = loadedMetalFx!;
+  return <MetalFx {...props} />;
 }
 
 // Touch browsers fire a tap's click a moment after the finger lifts.
@@ -121,6 +121,8 @@ function createPlainControlStore(plainControlId: string) {
       document.addEventListener("pointerdown", startPress, true);
       document.addEventListener("pointerup", endPress, true);
       document.addEventListener("pointercancel", endPress, true);
+      // Catch a press that began before these listeners were added.
+      pressed = findPlainControl()?.querySelector(":active") != null;
       return () => {
         document.removeEventListener("focusin", onChange);
         document.removeEventListener("focusout", onChange);
@@ -254,6 +256,7 @@ export function MetalRing({ children, variant }: MetalRingProps) {
 
   return (
     <LoadedMetalFx
+      disableGlow={reducedMotion}
       paused={reducedMotion && themeRepaint.done}
       ref={metalFxRef}
       theme={theme}
