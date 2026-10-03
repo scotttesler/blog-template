@@ -118,6 +118,12 @@ function createPlainControlStore(plainControlId: string) {
           onChange();
         }, pressSettleMs);
       };
+      // Space is the one key that holds a button pressed until it is released.
+      const endKeyPress = ({ key }: KeyboardEvent) => {
+        if (key === " ") {
+          endPress();
+        }
+      };
 
       document.addEventListener("focusin", onChange);
       document.addEventListener("focusout", onChange);
@@ -126,13 +132,11 @@ function createPlainControlStore(plainControlId: string) {
       document.addEventListener("pointercancel", endPress, true);
       // A press that opens a context menu may never send a pointerup.
       document.addEventListener("contextmenu", endPress, true);
-      // Catch a pointer press that began before these listeners were added.
-      // Focus already holds the control during a key press.
+      document.addEventListener("keyup", endKeyPress, true);
+      // Catch a press that began before these listeners were added.
       const plainControl = findPlainControl();
       pressed =
-        plainControl !== null &&
-        !plainControl.contains(document.activeElement) &&
-        plainControl.querySelector(":active") !== null;
+        plainControl !== null && plainControl.querySelector(":active") !== null;
       return () => {
         document.removeEventListener("focusin", onChange);
         document.removeEventListener("focusout", onChange);
@@ -140,6 +144,7 @@ function createPlainControlStore(plainControlId: string) {
         document.removeEventListener("pointerup", endPress, true);
         document.removeEventListener("pointercancel", endPress, true);
         document.removeEventListener("contextmenu", endPress, true);
+        document.removeEventListener("keyup", endKeyPress, true);
         clearTimeout(settleTimeout);
         pressed = false;
       };
