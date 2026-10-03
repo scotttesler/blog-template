@@ -124,14 +124,22 @@ function createPlainControlStore(plainControlId: string) {
       document.addEventListener("pointerdown", startPress, true);
       document.addEventListener("pointerup", endPress, true);
       document.addEventListener("pointercancel", endPress, true);
-      // Catch a press that began before these listeners were added.
-      pressed = findPlainControl()?.querySelector(":active") != null;
+      // A press that opens a context menu may never send a pointerup.
+      document.addEventListener("contextmenu", endPress, true);
+      // Catch a pointer press that began before these listeners were added.
+      // Focus already holds the control during a key press.
+      const plainControl = findPlainControl();
+      pressed =
+        plainControl !== null &&
+        !plainControl.contains(document.activeElement) &&
+        plainControl.querySelector(":active") !== null;
       return () => {
         document.removeEventListener("focusin", onChange);
         document.removeEventListener("focusout", onChange);
         document.removeEventListener("pointerdown", startPress, true);
         document.removeEventListener("pointerup", endPress, true);
         document.removeEventListener("pointercancel", endPress, true);
+        document.removeEventListener("contextmenu", endPress, true);
         clearTimeout(settleTimeout);
         pressed = false;
       };
