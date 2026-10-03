@@ -3,7 +3,6 @@
 import type { MetalFx as MetalFxComponent, MetalFxVariant } from "metal-fx";
 import { useTheme } from "next-themes";
 import {
-  useCallback,
   useEffect,
   useId,
   useRef,
@@ -63,16 +62,64 @@ function LoadedMetalFx(props: ComponentProps<typeof MetalFxComponent>) {
   return MetalFx && <MetalFx {...props} />;
 }
 
-function subscribeToFocus(onFocusChange: () => void) {
-  document.addEventListener("focusin", onFocusChange);
-  document.addEventListener("focusout", onFocusChange);
-  return () => {
-    document.removeEventListener("focusin", onFocusChange);
-    document.removeEventListener("focusout", onFocusChange);
+// Touch browsers fire a tap's click a moment after the finger lifts.
+const pressSettleMs = 500;
+
+// Swapping in the metal ring replaces the control's element, which would
+// drop its keyboard focus or a click in progress. The plain control stays
+// while it is focused or pressed.
+function createPlainControlStore(plainControlId: string) {
+  const findPlainControl = () =>
+    document.querySelector(`[data-metal-ring-plain="${plainControlId}"]`);
+  let pressed = false;
+  let settleTimeout: ReturnType<typeof setTimeout> | undefined;
+
+  return {
+    getInUse: () => {
+      const plainControl = findPlainControl();
+      return (
+        plainControl !== null &&
+        (pressed || plainControl.contains(document.activeElement))
+      );
+    },
+    subscribe: (onChange: () => void) => {
+      const startPress = ({ target }: PointerEvent) => {
+        if (target instanceof Node && findPlainControl()?.contains(target)) {
+          clearTimeout(settleTimeout);
+          pressed = true;
+          onChange();
+        }
+      };
+      const endPress = () => {
+        if (!pressed) {
+          return;
+        }
+        clearTimeout(settleTimeout);
+        settleTimeout = setTimeout(() => {
+          pressed = false;
+          onChange();
+        }, pressSettleMs);
+      };
+
+      document.addEventListener("focusin", onChange);
+      document.addEventListener("focusout", onChange);
+      document.addEventListener("pointerdown", startPress, true);
+      document.addEventListener("pointerup", endPress, true);
+      document.addEventListener("pointercancel", endPress, true);
+      return () => {
+        document.removeEventListener("focusin", onChange);
+        document.removeEventListener("focusout", onChange);
+        document.removeEventListener("pointerdown", startPress, true);
+        document.removeEventListener("pointerup", endPress, true);
+        document.removeEventListener("pointercancel", endPress, true);
+        clearTimeout(settleTimeout);
+        pressed = false;
+      };
+    },
   };
 }
 
-function getServerFocus() {
+function getServerPlainControlInUse() {
   return false;
 }
 
@@ -106,19 +153,15 @@ export function MetalRing({ children, variant }: MetalRingProps) {
     getMetalFxLoaded,
     getServerMetalFxLoaded,
   );
-  const getPlainControlFocused = useCallback(
-    () =>
-      document.activeElement?.closest(
-        `[data-metal-ring-plain="${plainControlId}"]`,
-      ) != null,
-    [plainControlId],
+  const [plainControlStore] = useState(() =>
+    createPlainControlStore(plainControlId),
   );
-  const plainControlFocused = useSyncExternalStore(
-    subscribeToFocus,
-    getPlainControlFocused,
-    getServerFocus,
+  const plainControlInUse = useSyncExternalStore(
+    plainControlStore.subscribe,
+    plainControlStore.getInUse,
+    getServerPlainControlInUse,
   );
-  const showMetal = metalFxLoaded && !plainControlFocused;
+  const showMetal = metalFxLoaded && !plainControlInUse;
   const metalFxRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "light" ? "light" : "dark";
