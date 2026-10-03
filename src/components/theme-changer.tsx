@@ -1,27 +1,11 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useSyncExternalStore } from "react";
-
-function subscribe() {
-  return () => {};
-}
-
-function getClientSnapshot() {
-  return true;
-}
-
-function getServerSnapshot() {
-  return false;
-}
+import { useMounted } from "@/lib/use-mounted";
 
 export function ThemeChanger() {
   const { resolvedTheme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    subscribe,
-    getClientSnapshot,
-    getServerSnapshot,
-  );
+  const mounted = useMounted();
 
   const isDark = mounted && resolvedTheme === "dark";
 
@@ -33,7 +17,7 @@ export function ThemeChanger() {
       type="button"
     >
       <span
-        className={`absolute left-1 flex h-5 w-5 items-center justify-center rounded-full bg-white text-[10px] shadow transition-transform ${
+        className={`absolute left-1 flex h-5 w-5 items-center justify-center rounded-full bg-neutral-900 text-[10px] text-white shadow transition-transform dark:bg-neutral-100 dark:text-neutral-900 ${
           isDark ? "translate-x-5" : "translate-x-0"
         }`}
       >
