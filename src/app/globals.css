@@ -58,3 +58,10 @@ body {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
+
+@supports not selector(:has(*)) {
+  .metal-fx-root[data-normalize="true"]:focus-within {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
