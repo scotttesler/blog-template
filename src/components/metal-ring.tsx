@@ -144,6 +144,7 @@ export function MetalRing({ children, variant }: MetalRingProps) {
 
     let frame = 0;
     let lastFrameAt: number | undefined;
+    let onScreen = false;
     let onScreenMs = 0;
 
     const countFrame = (now: number) => {
@@ -163,17 +164,24 @@ export function MetalRing({ children, variant }: MetalRingProps) {
       frame = requestAnimationFrame(countFrame);
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const restartCounting = () => {
       cancelAnimationFrame(frame);
       lastFrameAt = undefined;
-      if (entries.at(-1)?.isIntersecting) {
+      if (onScreen && document.visibilityState === "visible") {
         frame = requestAnimationFrame(countFrame);
       }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      onScreen = entries.at(-1)?.isIntersecting ?? false;
+      restartCounting();
     });
     observer.observe(ring);
+    document.addEventListener("visibilitychange", restartCounting);
 
     return () => {
       observer.disconnect();
+      document.removeEventListener("visibilitychange", restartCounting);
       cancelAnimationFrame(frame);
     };
   }, [themeRepaint]);
