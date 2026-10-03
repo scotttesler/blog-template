@@ -53,3 +53,28 @@ body {
 .link {
   @apply text-inherit no-underline;
 }
+
+.metal-fx-root[data-normalize="true"]:has(:focus-visible) {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@supports not selector(:has(*)) {
+  .metal-fx-root[data-normalize="true"]:focus-within {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+/* As of metal-fx 2.0.11, a ring hides the control it wraps until the ring
+   first draws, which never happens while its WebGL context stays lost. */
+.metal-fx-root {
+  animation: metal-ring-reveal 0s 1s forwards;
+}
+
+@keyframes metal-ring-reveal {
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}

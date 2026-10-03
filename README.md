@@ -8,6 +8,7 @@ A minimal blog template built with [Next.js](https://nextjs.org/) App Router, Ty
 - React components inside posts (charts, widgets, etc.)
 - Paginated home page
 - Light / dark theme (`next-themes`)
+- Animated metal rings around the home button and theme toggle ([`metal-fx`](https://www.npmjs.com/package/metal-fx))
 - Static generation for posts and listing pages
 - `loading` / `error` UI, sitemap, and robots
 
@@ -61,6 +62,10 @@ import { MyScene } from '@/components/mdx/my-scene'
 ```
 
 For heavy client-only libraries (Three.js, etc.), mark the component with `'use client'` and load it with `next/dynamic` if you need to avoid SSR.
+
+## Metal rings
+
+`src/components/metal-ring.tsx` loads the ring effect after the page finishes loading and needs WebGL2 and canvas `roundRect`; without either, the plain controls show. Change `preset` there to change the look, or return `children` from `MetalRing` to remove the effect.
 
 ## Development
 
