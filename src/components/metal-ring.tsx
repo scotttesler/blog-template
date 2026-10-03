@@ -41,8 +41,17 @@ async function loadMetalFx() {
   metalFxListeners.forEach((onLoad) => onLoad());
 }
 
-function subscribeToMetalFx(onLoad: () => void) {
+function startLoadingMetalFx() {
   metalFxLoad ??= loadMetalFx().catch(() => {});
+}
+
+function subscribeToMetalFx(onLoad: () => void) {
+  // The rings are decoration, so their code waits for the page to load.
+  if (document.readyState === "complete") {
+    startLoadingMetalFx();
+  } else {
+    window.addEventListener("load", startLoadingMetalFx, { once: true });
+  }
   metalFxListeners.add(onLoad);
   return () => {
     metalFxListeners.delete(onLoad);

@@ -65,7 +65,7 @@ For heavy client-only libraries (Three.js, etc.), mark the component with `'use 
 
 ## Metal rings
 
-`src/components/metal-ring.tsx` loads the ring effect after the page hydrates and needs WebGL2; without it, the plain controls show. Pass a different `preset` to `LoadedMetalFx` there to change the look, or return `children` from `MetalRing` to remove the effect.
+`src/components/metal-ring.tsx` loads the ring effect after the page finishes loading and needs WebGL2; without it, the plain controls show. Pass a different `preset` to `LoadedMetalFx` there to change the look, or return `children` from `MetalRing` to remove the effect.
 
 ## Development
 
