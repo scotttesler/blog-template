@@ -17,6 +17,12 @@ let metalFxLoad: Promise<void> | undefined;
 const metalFxListeners = new Set<() => void>();
 
 async function loadMetalFx() {
+  // As of metal-fx 2.0.11, a ring hides the control it wraps when the browser
+  // cannot draw the ring's outline with canvas roundRect, as in Firefox 111.
+  if (!("roundRect" in CanvasRenderingContext2D.prototype)) {
+    return;
+  }
+
   const { createInstance, isMetalFxSupported, MetalFx } =
     await import("metal-fx");
 
